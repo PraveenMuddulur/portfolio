@@ -1,0 +1,10 @@
+This is a placeholder for your resume PDF file.
+
+Replace this file with your actual resume.pdf
+
+Instructions:
+1. Generate or export your resume as a PDF
+2. Save it as "resume.pdf" in the /assets folder
+3. The download link in the sidebar will then reference this file
+
+The resume download link in the portfolio uses: assets/resume.pdf
