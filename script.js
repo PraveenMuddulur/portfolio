@@ -8,9 +8,21 @@ async function fetchGitHubProjects() {
     
     const container = document.getElementById('githubProjects');
     if (!container) return;
+
+    // Add custom GitHub topic names you want to use for hiding repos from the portfolio.
+    const hiddenPortfolioTags = new Set([
+      'hide-from-portfolio',
+      'portfolio-hide'
+    ]);
     
     // Filter and sort repos
-    const filtered = repos.filter(r => !r.fork || r.stargazers_count > 0).slice(0, 6);
+    const filtered = repos
+      .filter(r => {
+        const repoTopics = Array.isArray(r.topics) ? r.topics.map(t => String(t).toLowerCase()) : [];
+        const hasHiddenTag = repoTopics.some(topic => hiddenPortfolioTags.has(topic));
+        return !hasHiddenTag && (!r.fork || r.stargazers_count > 0);
+      })
+      .slice(0, 6);
     
     if (filtered.length === 0) {
       container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--ink3)"><p style="font-size:13px">No repositories found</p></div>';
